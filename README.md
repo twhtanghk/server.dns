@@ -14,7 +14,7 @@ Server API
 	```
 	get /api/user - list users for the specified pagination/sorting parameters skip, limit, sort
 	get /api/user/me - read user attributes of current login user
-	get /api/user/:id - read user attributes of the specifie
+	get /api/user/:email - read user attributes of the specifie
     ```
     
 ## record
@@ -25,8 +25,8 @@ Server API
 * api
 
 	```
-	post /api/record - create dns record with parameters { domain: 'domain name', name: 'host name/@', type: 'A|AAAA|NS', param: ['auto|domain|IP address'] } where auto is auto-filled with requested client IP
-	delete /api/record - delete dns record with matching parameters { doamin: 'domain name', name='host name/@', type: 'A|AAAA|NS', param: optional ['domain|IP address'] } 
+	post /api/record - create dns record with parameters { domain: 'domain name', name: 'host name|@', type: 'A|AAAA|NS', param: ['auto|domain|IP address'] } where auto is auto-filled with requested client IP
+	delete /api/record - delete dns record with matching parameters { doamin: 'domain name', name='host name|@', type: 'A|AAAA|NS', param: optional ['domain|IP address'] } 
 	```
 	
 Configuration
