@@ -38,8 +38,9 @@ Configuration
 *   cd server.dns
 *   npm install
 *   copy config/env/development.coffee as config/env/production.coffee
-*	update database connection
+*	update server port and database connection
 ```
+	port:	3000
 	connections:
 		mongo:
 			adapter:	'sails-mongo'
