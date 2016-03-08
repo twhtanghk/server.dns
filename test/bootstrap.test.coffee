@@ -1,7 +1,6 @@
 env = require './env.coffee'
 fs = require 'fs'
 config = JSON.parse fs.readFileSync './.sailsrc'
-config.environment = 'production'
 
 Sails = require 'sails'
 

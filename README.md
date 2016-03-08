@@ -14,7 +14,7 @@ Server API
 	```
 	get /api/user - list users for the specified pagination/sorting parameters skip, limit, sort
 	get /api/user/me - read user attributes of current login user
-	get /api/user/:email - read user attributes of the specifie
+	get /api/user/:id - read user attributes of the specified id (user email)
     ```
     
 ## record
@@ -25,8 +25,21 @@ Server API
 * api
 
 	```
+	get /api/record/:domain - list records for the specified domain name, pagination and sorting parameters skip, limit, sort
 	post /api/record - create dns record with parameters { domain: 'domain name', name: 'host name|@', type: 'A|AAAA|NS', param: ['auto|domain|IP address'] } where auto is auto-filled with requested client IP
 	delete /api/record - delete dns record with matching parameters { doamin: 'domain name', name='host name|@', type: 'A|AAAA|NS', param: optional ['domain|IP address'] } 
+	```
+
+## domain
+* attributes
+
+	see [api/models/User.coffee](https://github.com/twhtanghk/server.dns/blob/master/api/models/Domain.coffee)
+		
+* api
+
+	```
+	get /api/domain - list all domains for the specified pagination and sorting parameters skip, limit, sort
+	delete /api/domain/:domain - delete the specified domain name and corresponding dns records 
 	```
 	
 Configuration
@@ -38,7 +51,7 @@ Configuration
 *   cd server.dns
 *   npm install
 *   copy config/env/development.coffee as config/env/production.coffee
-*	update server port and database connection
+*	update server port, database connection, oauth2 settings
 ```
 	port:	3000
 	connections:
@@ -50,6 +63,9 @@ Configuration
 			user:		'dnsrw'
 			password:	'password'
 			database:	'dns'
+	oauth2:
+		verifyURL:			'https://mob.myvnc.com/org/oauth2/verify/'
+		scope:				[ "https://mob.myvnc.com/org/users"]
 ```
 *	start server
 ```
@@ -62,12 +78,15 @@ Configuration
 *   cd server.dns
 *   npm install
 *   copy config/env/development.coffee as config/env/production.coffee
-*	update server url oauth2 client id and secret on config/env/production.coffee
+*	update server url and oauth2 settings on config/env/production.coffee
 ```
 	url:	'http://localhost:3000'
-	client:
-		id:		'client id'
-		secret: 'client secret'
+	oauth2:
+		tokenUrl:			'https://mob.myvnc.com/org/oauth2/token/'
+		scope:				[ "https://mob.myvnc.com/org/users"]
+		client:
+			id:		'client id'
+			secret: 'client secret'
 ```
 *	create dns A record by
 ```

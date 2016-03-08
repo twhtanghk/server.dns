@@ -78,7 +78,7 @@ module.exports =
 		
 	# reload config
 	reload: ->
-		exec 'killall -HUP named'
+		exec sails.config.reload
 		
 	afterCreate: (values, cb) ->
 		sails.models.domain

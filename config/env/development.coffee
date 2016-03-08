@@ -4,6 +4,7 @@ module.exports =
 	port:			3000
 	hookTimeout:	400000
 	url:		'http://localhost:3000'
+	reload:		'killall -HUP named'
 	oauth2:
 		tokenUrl:			'https://mob.myvnc.com/org/oauth2/token/'
 		verifyURL:			'https://mob.myvnc.com/org/oauth2/verify/'

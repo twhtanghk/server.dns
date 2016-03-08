@@ -64,20 +64,9 @@ tokenReady = (sails, user, client = sails.config.oauth2.client) ->
 			res.body.access_token
 	
 recordReady = (token, add, record) ->
-	new Promise (resolve, reject) ->
-		opts = 
-			headers:
-				Authorization:	"Bearer #{token}"
-		if add
-			http.post "#{sails.config.url}/api/record", record, opts, (err, res) ->
-				if err
-					return reject err
-				resolve res
-		else
-			http.delete "#{sails.config.url}/api/record", record, opts, (err, res) ->
-				if err
-					return reject err
-				resolve res
+	url = "#{sails.config.url}/api/record"
+	func = if add then sails.services.rest().post else sails.services.rest().delete
+	func token, url, record
 		
 argReady
 	.then (data) ->

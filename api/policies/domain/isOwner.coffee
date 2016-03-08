@@ -12,5 +12,5 @@ module.exports = (req, res, next) ->
 			 if records.length
 			 	next()
 			 else
-			 	res.forbidden new Error "domain #{cond.name} not found"
+			 	res.notFound new Error cond.name
 		.catch res.serverError

@@ -34,7 +34,7 @@ module.exports =
 		
 		type:
 			type:		'string'
-			'in':		['SOA', 'A', 'AAAA', 'NS']
+			'in':		['SOA', 'A', 'AAAA', 'NS', 'MX', 'CNAME']
 			required:	true
 			
 		param:
@@ -99,6 +99,19 @@ module.exports =
 			NS: (param) ->
 				[server] = param
 				validator.isFQDN server,
+					require_tld: 		false
+					allow_underscores:	false
+					allow_trailing_dot:	true
+			MX: (param) ->
+				[priority, name] = param
+				typeof priority == 'number' and
+				validator.isFQDN name,
+					require_tld: 		false
+					allow_underscores:	false
+					allow_trailing_dot:	true
+			CNAME: (param) ->
+				[name] = param
+				validator.isFQDN name,
 					require_tld: 		false
 					allow_underscores:	false
 					allow_trailing_dot:	true

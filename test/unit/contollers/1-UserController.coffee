@@ -31,3 +31,17 @@ describe 'UserController', ->
 									throw new Error "user #{user.id} not properly created"
 								done()
 							.catch done
+							
+	describe 'list', ->
+		it 'user', (done) ->
+			req sails.hooks.http.app
+				.get '/api/user'
+				.set 'Authorization', "Bearer #{tokens[0]}"
+				.expect 200, done
+				
+	describe 'find', ->
+		it 'by email', (done) ->
+			req sails.hooks.http.app
+				.get "/api/user/me"
+				.set 'Authorization', "Bearer #{tokens[0]}"
+				.expect 200, done

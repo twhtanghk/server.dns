@@ -38,6 +38,17 @@ module.exports = (options = sails.config.http.opts || {}) ->
 					return reject err
 				fulfill res
 					
+	'delete': (token, url, data) ->
+		new Promise (fulfill, reject) ->
+			opts =
+				headers:
+					Authorization:	"Bearer #{token}"
+			_.extend opts, options
+			http.delete url, data, opts, (err, res) ->
+				if err
+					return reject err
+				fulfill res
+		
 	push: (token, roster, msg) ->
 		param =
 			roster: roster
