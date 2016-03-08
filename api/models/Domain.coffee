@@ -5,6 +5,7 @@
 stream = require 'stream'
 fs = require 'fs'
 _ = require 'lodash'
+require 'shelljs/global'
 
 module.exports =
 
@@ -44,7 +45,7 @@ module.exports =
 		dump: ->
 			new Promise (resolve, reject) =>
 				@toStream()
-					.pipe fs.createWriteStream sails.config.file(@name)
+					.pipe fs.createWriteStream sails.config.file("db.#{@name}")
 					.on 'error', reject
 					.on 'finish', resolve
 	
@@ -58,3 +59,37 @@ module.exports =
 						.then ->
 							sails.models.record
 								.create soa
+
+	# dump named.conf.local with all zone details
+	dump: ->
+		sails.models.domain
+			.find()
+			.then (domains) ->
+				out = fs.createWriteStream sails.config.file('named.conf.local')
+				_.each domains, (domain) ->
+					out.write """
+						zone \"#{domain.name}\" {
+							type master;
+							file \"db.#{domain.name}\";
+						};
+						
+					"""
+			.catch sails.log.error
+		
+	# reload config
+	reload: ->
+		exec 'killall -HUP named'
+		
+	afterCreate: (values, cb) ->
+		sails.models.domain
+			.dump()
+			.then ->
+				sails.models.domain.reload()
+				cb()
+	
+	afterDestroy: (values, cb) ->
+		sails.models.domain
+			.dump()
+			.then ->
+				sails.models.domain.reload()
+				cb()	

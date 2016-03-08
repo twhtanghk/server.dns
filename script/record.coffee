@@ -2,6 +2,7 @@ fs = require 'fs'
 Sails = require 'sails'
 Promise = require 'bluebird'
 http = require 'needle'
+_ = require 'lodash'
 
 argReady = new Promise (resolve, reject) ->
 	help = """
@@ -32,8 +33,23 @@ argReady = new Promise (resolve, reject) ->
 		reject new Error help
 	
 sailsReady = new Promise (resolve, reject) ->
-	config = JSON.parse fs.readFileSync './.sailsrc'
-	config.environment = 'production'
+	config =
+		environment: 'production'
+		hooks:
+			grunt:			false
+			i18n:			false
+			views:			false
+			csrf:			false
+			session:		false
+			blueprints:		false
+			controllers:	false
+			cors:			false
+			http:			false
+			orm:			false
+			policies:		false
+			pubsub:			false
+			sockets:		false
+			userhooks:		false
 	Sails.lift config, (err, sails) ->
 		if err
 			return reject err

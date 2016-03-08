@@ -1,8 +1,8 @@
 # server.dns
-Restful Web Service for dns update
+Restful Web Service for dns update. Dump local zone files and reload named by sending HUP signal if zone or its records created or deleted
 
 Server API
----------------------------------------------------------
+----------
 ## user
 
 * attributes
@@ -30,7 +30,32 @@ Server API
 	```
 	
 Configuration
-=============
+-------------
+
+## Server
+
+*   git clone https://github.com/twhtanghk/server.dns.git
+*   cd server.dns
+*   npm install
+*   copy config/env/development.coffee as config/env/production.coffee
+*	update database connection
+```
+	connections:
+		mongo:
+			adapter:	'sails-mongo'
+			driver:		'mongodb'
+			host:		'localhost'
+			port:		27017
+			user:		'dnsrw'
+			password:	'password'
+			database:	'dns'
+```
+*	start server
+```
+	npm start
+```
+
+## Client for remotely updating dns record
 
 *   git clone https://github.com/twhtanghk/server.dns.git
 *   cd server.dns

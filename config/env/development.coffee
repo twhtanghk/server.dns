@@ -1,7 +1,5 @@
 agent = require 'https-proxy-agent'
 
-i = 0
-
 module.exports =
 	port:			3000
 	hookTimeout:	400000
@@ -14,8 +12,8 @@ module.exports =
 			id:		'client id'
 			secret: 'client secret'
 	soa:	[300, 180, 1209600, 300] # [refresh, retry, expire, ttl]
-	file: (domain) ->
-		"conf.d/db.#{domain}.#{i++}"
+	file: (name) ->
+		"conf.d/#{name}"
 	models:
 		connection: 'mongo'
 		migrate:	'alter'

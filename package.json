@@ -23,7 +23,7 @@
   },
   "scripts": {
     "debug": "node debug app.js",
-    "start": "node app.js",
+    "start": "forever start --workingDir . -a -l server.dns.log app.js --prod",
     "test": "mocha test/bootstrap.test.coffee test/unit/**/*.coffee"
   },
   "main": "app.js",

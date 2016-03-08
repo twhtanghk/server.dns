@@ -111,16 +111,11 @@ module.exports =
 		getDomain record.domain
 			.then (domain) ->
 				domain.dump()
-					.then cb
+					.then ->
+						sails.models.domain.reload()
+						cb()
 			.catch cb 	
 		
-	afterUpdate: (record, cb) ->
-		getDomain record.domain
-			.then (domain) ->
-				domain.dump()
-					.then cb
-			.catch cb 	
-			
 	afterDestroy: (records, cb) ->
 		Promise
 			.all _.map records, (record) ->
@@ -130,5 +125,6 @@ module.exports =
 					.all _.map domains, (domain) ->
 						domain.dump()
 					.then ->
+						sails.models.domain.reload()
 						cb()
 			.catch cb
