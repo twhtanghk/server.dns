@@ -14,7 +14,7 @@ module.exports =
 			secret: 'client secret'
 	soa:	[300, 180, 1209600, 300] # [refresh, retry, expire, ttl]
 	file: (name) ->
-		"conf.d/#{name}"
+		"#{process.cwd()}/conf.d/#{name}"
 	models:
 		connection: 'mongo'
 		migrate:	'alter'

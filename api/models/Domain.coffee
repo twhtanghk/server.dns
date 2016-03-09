@@ -70,7 +70,7 @@ module.exports =
 					out.write """
 						zone \"#{domain.name}\" {
 							type master;
-							file \"db.#{domain.name}\";
+							file \"#{sails.config.file("db.#{domain.name}")}\";
 						};
 						
 					"""
