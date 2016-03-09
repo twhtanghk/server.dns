@@ -45,7 +45,7 @@ argReady
 						recordReady token, data.op, data.record
 							.then (res) ->
 								console.log res.statusCode
-								console.log res.body
+								console.log if res.body instanceof Buffer then res.body.toString() else res.body
 		.finally Sails.lower
 	.catch (err) ->
 		console.log err

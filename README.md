@@ -88,9 +88,14 @@ Configuration
 			id:		'client id'
 			secret: 'client secret'
 ```
-*	create dns A record by
+*	create dns NS, A record as below
 ```
-	node_modules/.bin/coffee script/record.coffee -u user -p password --add abc.com www1 A auto
+	node_modules/.bin/coffee script/record.coffee -u user -p password --add abc.com @ A 10.1.1.1
+	node_modules/.bin/coffee script/record.coffee -u user -p password --add abc.com @ NS ns1.abc.com.
+	node_modules/.bin/coffee script/record.coffee -u user -p password --add abc.com ns1 A 10.1.1.1
+	node_modules/.bin/coffee script/record.coffee -u user -p password --add abc.com www A 10.1.1.1
+	node_modules/.bin/coffee script/record.coffee -u user -p password --add abc.com www A 10.1.1.2
+	node_modules/.bin/coffee script/record.coffee -u user -p password --add abc.com ns2 CNAME ns1.abc.com.
 ```
 *	delete dns A records with hostname www
 ```

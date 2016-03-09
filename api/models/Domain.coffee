@@ -39,7 +39,7 @@ module.exports =
 		toStream: ->
 			ret = new stream.Readable()
 			ret._read = -> return
-			_.each _.reverse(_.sortBy(@records, 'type')), (record) ->
+			_.each _.reverse(_.sortBy(@records, ['type', 'name'])), (record) ->
 				ret.push record.toLine() 
 			ret.push null
 			return ret
