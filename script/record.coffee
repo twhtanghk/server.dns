@@ -1,8 +1,7 @@
-fs = require 'fs'
 Sails = require 'sails'
 Promise = require 'bluebird'
-http = require 'needle'
 _ = require 'lodash'
+lib = require './lib.coffee'
 
 argReady = new Promise (resolve, reject) ->
 	help = """
@@ -32,37 +31,6 @@ argReady = new Promise (resolve, reject) ->
 	else
 		reject new Error help
 	
-sailsReady = new Promise (resolve, reject) ->
-	config =
-		environment: 'production'
-		hooks:
-			grunt:			false
-			i18n:			false
-			views:			false
-			csrf:			false
-			session:		false
-			blueprints:		false
-			controllers:	false
-			cors:			false
-			http:			false
-			orm:			false
-			policies:		false
-			pubsub:			false
-			sockets:		false
-			userhooks:		false
-	Sails.lift config, (err, sails) ->
-		if err
-			return reject err
-		resolve sails
-
-tokenReady = (sails, user, client = sails.config.oauth2.client) ->
-	sails.services.rest()
-		.token sails.config.oauth2.tokenUrl, client, user, sails.config.oauth2.scope
-		.then (res) ->
-			if res.statusCode != 200
-				return Promise.reject new Error res.body.error_description  
-			res.body.access_token
-	
 recordReady = (token, add, record) ->
 	url = "#{sails.config.url}/api/record"
 	func = if add then sails.services.rest().post else sails.services.rest().delete
@@ -70,9 +38,9 @@ recordReady = (token, add, record) ->
 		
 argReady
 	.then (data) ->
-		sailsReady
+		lib.sailsReady
 			.then (sails) ->
-				tokenReady sails, data.user
+				lib.tokenReady sails, data.user
 					.then (token) ->
 						recordReady token, data.op, data.record
 							.then (res) ->

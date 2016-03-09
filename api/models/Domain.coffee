@@ -80,12 +80,20 @@ module.exports =
 	reload: ->
 		exec sails.config.reload
 		
+	beforeDestroy: (cond, cb) ->
+		sails.models.record
+			.destroy domain: cond.where.name
+			.then ->
+				cb()
+			.catch cb
+			
 	afterCreate: (values, cb) ->
 		sails.models.domain
 			.dump()
 			.then ->
 				sails.models.domain.reload()
 				cb()
+			.catch cb
 	
 	afterDestroy: (values, cb) ->
 		sails.models.domain
@@ -93,3 +101,4 @@ module.exports =
 			.then ->
 				sails.models.domain.reload()
 				cb()	
+			.catch cb
