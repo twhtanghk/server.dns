@@ -3,7 +3,6 @@
  # @description :: TODO: You might write a short summary of how this model works and what it represents here.
  # @docs        :: http://sailsjs.org/#!documentation/models
 validator = require 'validator'
-dateFormat = require 'dateformat'
 
 getDomain = (domain) ->
 	if typeof domain == 'string' 
@@ -50,7 +49,7 @@ module.exports =
 			switch @type
 				when 'SOA'
 					[refresh, retry, expire, ttl] = @param
-					"#{@name} IN #{@type} ns1.#{@domain.name}. #{@createdBy}. (#{dateFormat(@domain.lastUpdated(), 'yyyymmddHHMMss')} #{refresh} #{retry} #{expire} #{ttl})\n"
+					"#{@name} IN #{@type} ns1.#{@domain.name}. #{@createdBy}. (#{@domain.serial()} #{refresh} #{retry} #{expire} #{ttl})\n"
 				else
 					"#{@name} IN #{@type} #{@param[0]}\n"
 
@@ -123,10 +122,11 @@ module.exports =
 	afterCreate: (record, cb) ->
 		getDomain record.domain
 			.then (domain) ->
-				domain.dump()
-					.then ->
-						sails.models.domain.reload()
-						cb()
+				domain.touch()
+					.then (domain) ->
+						domain.dump().then ->
+							sails.models.domain.reload
+							cb()
 			.catch cb 	
 		
 	afterDestroy: (records, cb) ->
@@ -136,7 +136,9 @@ module.exports =
 			.then (domains) ->
 				Promise
 					.all _.map domains, (domain) ->
-						domain.dump()
+						domain.touch()
+							.then (domain) ->
+								domain.dump()
 					.then ->
 						sails.models.domain.reload()
 						cb()

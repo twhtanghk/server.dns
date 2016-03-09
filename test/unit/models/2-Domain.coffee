@@ -15,6 +15,32 @@ describe 'domain', ->
 				done()
 			.catch done
 			
+	describe 'touch', ->
+		it 'abc.com', (done) ->
+			sails.models.domain
+				.findOne 'abc.com'
+				.populateAll()
+				.then (domain) ->
+					domain.touch()
+						.then ->
+							done()
+				.catch done
+				
+	describe 'dump', ->
+		it 'abc.com', (done) ->
+			sails.models.domain
+				.findOne 'abc.com'
+				.populateAll()
+				.then (domain) ->
+					_.each domain.records, (record) ->
+						record.domain = domain
+					Promise.resolve domain
+				.then (domain) ->
+					domain.dump()
+						.then ->
+							done()
+				.catch done
+				
 	describe 'read', ->
 		it 'abc.com', (done) ->
 			sails.models.domain
@@ -34,14 +60,3 @@ describe 'domain', ->
 								done()
 							else
 								done new Error "mismatch domain zone data"
-						
-	describe 'touch', ->
-		it 'abc.com', (done) ->
-			sails.models.domain
-				.findOne 'abc.com'
-				.populateAll()
-				.then (domain) ->
-					domain.touch()
-						.then ->
-							done()
-						.catch done
