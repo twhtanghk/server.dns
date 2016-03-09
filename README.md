@@ -101,3 +101,19 @@ Configuration
 ```
 	node_modules/.bin/coffee script/record.coffee -u user -p password --del abc.com www A
 ```
+
+## vpn connect to remote server and update dns record
+
+* follow the steps listed above to configure the client
+* copy the script "script/vpn" to "/etc/init.d" and update project root directory "root", and vpn server "url" variables
+* update the account details defined in "script/user.sh" and change mode to (600) read/write by owner only 
+```
+# openconnect user and password
+export ocuser=user
+export ocpass=password
+
+# oauth2 user and password
+export oauth2user=user
+export oauth2pass=password
+```
+* run /etc/init.d/vpn start or stop to connect or disconnect to the vpn server
