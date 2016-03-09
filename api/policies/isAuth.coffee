@@ -28,6 +28,7 @@ passport.use 'bearer', new bearer.Strategy {}, (token, done) ->
 		user.token = token
 		done(null, user)
 	reject = (err) ->
+		sails.log.error err
 		done(null, false, message: err)
 	verifyToken(token).then fulfill, reject
 	
