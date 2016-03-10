@@ -1,5 +1,3 @@
-agent = require 'https-proxy-agent'
-
 module.exports =
 	port:			3000
 	hookTimeout:	400000
@@ -29,6 +27,3 @@ module.exports =
 			database:	'dns'
 	log:
 		level:		'silly'
-	http:
-		opts:
-			agent:	new agent('http://proxy1.scig.gov.hk:8080')
