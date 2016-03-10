@@ -125,7 +125,7 @@ module.exports =
 				domain.touch()
 					.then (domain) ->
 						domain.dump().then ->
-							sails.models.domain.reload
+							sails.models.domain.reload()
 							cb()
 			.catch cb 	
 		
