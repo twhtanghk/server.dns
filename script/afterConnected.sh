@@ -16,8 +16,8 @@ case "${reason}" in
     ;;
 
   disconnect)
-    node_modules/.bin/coffee script/record.coffee -u ${oauth2user} -p ${oauth2pass} --del vpn.net ${HOSTNAME} A
     echo "nameserver ${INTERNAL_IP4_DNS}" |resolvconf -d tun0.vpn 
+    node_modules/.bin/coffee script/record.coffee -u ${oauth2user} -p ${oauth2pass} --del vpn.net ${HOSTNAME} A
     ;;
 
 esac
