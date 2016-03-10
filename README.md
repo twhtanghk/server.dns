@@ -106,7 +106,7 @@ Configuration
 
 * follow the steps listed above to configure the client
 * copy the script "script/vpn" to "/etc/init.d" and update project root directory "root", and vpn server "url" variables
-* update the account details defined in "script/user.sh" and change mode to (600) read/write by owner only 
+* update the account details defined in "script/user.sh" and change mode to (700) read/write/execute by owner only 
 ```
 # openconnect user and password
 export ocuser=user
