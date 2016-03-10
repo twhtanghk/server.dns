@@ -1,16 +1,15 @@
-#!/bin/bash
+#!/bin/sh
 
 root=~/git/server.dns
 url="https://abc.com:8443"
-
-. ${root}/script/user.sh
-script=${root}/script/afterConnected.sh
 
 pidfile="/tmp/openconnect-pid"
 
 case "$1" in
 start)
     sleep 8
+	. ${root}/script/user.sh
+	script=${root}/script/afterConnected.sh
     echo "${ocpass}" | openconnect -b --pid-file=$pidfile --user=${ocuser} --script=${script} $url
     ;;
 stop)
