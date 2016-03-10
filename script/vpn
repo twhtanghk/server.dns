@@ -1,7 +1,7 @@
 #!/bin/bash
 
 root=~/git/server.dns
-url="https://abc.com"
+url="https://abc.com:8443"
 
 . ${root}/script/user.sh
 script=${root}/script/afterConnected.sh
@@ -11,7 +11,7 @@ pidfile="/tmp/openconnect-pid"
 case "$1" in
 start)
     sleep 8
-    echo "$password" | openconnect -b --pid-file=$pidfile --user=$username --script=${script} $url
+    echo "${ocpass}" | openconnect -b --pid-file=$pidfile --user=${ocuser} --script=${script} $url
     ;;
 stop)
     cat $pidfile  | xargs kill -2
