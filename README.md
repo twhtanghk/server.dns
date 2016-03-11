@@ -71,7 +71,13 @@ Configuration
 ```
 	npm start
 ```
-
+*	include the following into nginx config if the web service is configured behind reverse proxy server
+```
+location /dns/ {
+  proxy_pass http://localhost:8080/;
+  proxy_set_header X-Forwarded-For $remote_addr;
+}
+```
 ## Client for remotely updating dns record
 
 *   git clone https://github.com/twhtanghk/server.dns.git
@@ -90,16 +96,16 @@ Configuration
 ```
 *	create dns NS, A record as below
 ```
-	node_modules/.bin/coffee script/record.coffee -u user -p password --add abc.com @ A 10.1.1.1
-	node_modules/.bin/coffee script/record.coffee -u user -p password --add abc.com @ NS ns1.abc.com.
-	node_modules/.bin/coffee script/record.coffee -u user -p password --add abc.com ns1 A 10.1.1.1
-	node_modules/.bin/coffee script/record.coffee -u user -p password --add abc.com www A 10.1.1.1
-	node_modules/.bin/coffee script/record.coffee -u user -p password --add abc.com www A 10.1.1.2
-	node_modules/.bin/coffee script/record.coffee -u user -p password --add abc.com ns2 CNAME ns1.abc.com.
+	script/record.coffee -u user -p password --add abc.com @ A 10.1.1.1
+	script/record.coffee -u user -p password --add abc.com @ NS ns1.abc.com.
+	script/record.coffee -u user -p password --add abc.com ns1 A 10.1.1.1
+	script/record.coffee -u user -p password --add abc.com www A 10.1.1.1
+	script/record.coffee -u user -p password --add abc.com www A 10.1.1.2
+	script/record.coffee -u user -p password --add abc.com ns2 CNAME ns1.abc.com.
 ```
 *	delete dns A records with hostname www
 ```
-	node_modules/.bin/coffee script/record.coffee -u user -p password --del abc.com www A
+	script/record.coffee -u user -p password --del abc.com www A
 ```
 
 ## vpn connect to remote server and update dns record

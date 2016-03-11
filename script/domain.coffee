@@ -1,3 +1,5 @@
+#!/usr/bin/coffee
+
 Promise = require 'bluebird'
 _ = require 'lodash'
 lib = require './lib.coffee'

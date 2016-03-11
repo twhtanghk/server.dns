@@ -4,7 +4,7 @@ actionUtil = require 'sails/lib/hooks/blueprints/actionUtil'
 module.exports = (req, res, next) ->
 	values = req.body
 	if values.type == 'A' and values.param[0] == 'auto'
-		values.param = req.connection.remoteAddress.split(':').slice(-1)
+		values.param = (req.headers['x-forwarded-for'] || req.connection.remoteAddress).split(':').slice(-1)
 	if values.type == 'AAAA' and values.param[0] == 'auto'
-		values.param = [req.connection.remoteAddress]
+		values.param = [req.headers['x-forwarded-for'] || req.connection.remoteAddress]
 	next()

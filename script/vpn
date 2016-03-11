@@ -1,6 +1,6 @@
 #!/bin/sh
 
-root=~/git/server.dns
+root=/root/git/server.dns
 url="https://abc.com:8443"
 
 pidfile="/tmp/openconnect-pid"

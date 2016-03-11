@@ -1,3 +1,5 @@
+#!/usr/bin/coffee
+
 Sails = require 'sails'
 Promise = require 'bluebird'
 _ = require 'lodash'
