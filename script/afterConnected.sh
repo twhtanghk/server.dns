@@ -6,7 +6,6 @@ root=/root/git/server.dns
 HOSTNAME=`hostname`
 
 cd ${root}
-. script/user.sh
 
 case "${reason}" in
 
