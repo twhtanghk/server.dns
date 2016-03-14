@@ -10,7 +10,7 @@ argReady = new Promise (resolve, reject) ->
 		Usage: domain.coffee -u user -p pass --del name
 			(e.g. 
 				add dns A record:
-					node_modules/.bin/coffee script/domain.coffee -u user -p pass --del abc.com 
+					script/domain.coffee -u user -p pass --del abc.com 
 			)
 	"""
 	argv = require('optimist').boolean('del').argv

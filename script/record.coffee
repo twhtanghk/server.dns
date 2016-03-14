@@ -10,11 +10,11 @@ argReady = new Promise (resolve, reject) ->
 		Usage: record domain name type param
 			(e.g. 
 				add dns A record:
-					node_modules/.bin/coffee script/record.coffee -u user -p pass --add abc.com www1 A 10.1.1.1
+					script/record.coffee -u user -p pass --add abc.com www1 A 10.1.1.1
 				del dns NS records: 
-					node_modules/.bin/coffee script/record.coffee -u user -p pass --del abc.com ns2 NS
+					script/record.coffee -u user -p pass --del abc.com ns2 NS
 				del dns CNAME record:
-					node_modules/.bin/coffee script/record.coffee -u user -p pass --del abc.com www CNAME www1 
+					script/record.coffee -u user -p pass --del abc.com www CNAME www1 
 			)
 	"""
 	argv = require('optimist').boolean('add').boolean('del').argv
