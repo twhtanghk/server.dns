@@ -118,3 +118,4 @@ nbproject
 .node_history
 conf.d/*
 /.project
+production.coffee

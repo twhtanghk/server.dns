@@ -20,11 +20,11 @@
     "sails-hook-requestlogger-file": "^2.0.5",
     "sails-mongo": "^0.12.0",
     "shelljs": "^0.6.0",
-    "validator": "^5.1.0"
+    "validator": "^5.1.0",
+    "winston": "^2.2.0"
   },
   "scripts": {
-    "debug": "node debug app.js",
-    "start": "forever start --workingDir . -a -l server.dns.log app.js --prod",
+    "start": "node app.js --prod",
     "test": "mocha test/bootstrap.test.coffee test/unit/**/*.coffee"
   },
   "main": "app.js",

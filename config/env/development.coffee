@@ -1,3 +1,5 @@
+winston = require 'winston'
+
 module.exports =
 	port:			3000
 	hookTimeout:	400000
@@ -12,7 +14,7 @@ module.exports =
 			secret: 'client secret'
 	soa:	[300, 180, 1209600, 300] # [refresh, retry, expire, ttl]
 	file: (name) ->
-		"#{process.cwd()}/conf.d/#{name}"
+		"conf.d/#{name}"
 	models:
 		connection: 'mongo'
 		migrate:	'alter'
@@ -22,8 +24,15 @@ module.exports =
 			driver:		'mongodb'
 			host:		'localhost'
 			port:		27017
-			user:		'dnsrw'
-			password:	'password'
+			user:		''
+			password:	''
 			database:	'dns'
 	log:
 		level:		'silly'
+		custom: new winston.Logger
+			level:		'silly'
+			transports: [
+				new winston.transports.File
+					filename:	'log/error.log'
+					timestamp:	true
+			]
