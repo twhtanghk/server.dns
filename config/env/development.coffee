@@ -16,7 +16,7 @@ module.exports =
 	zone:	"""
 			zone \"<%=name%>\" {
 				type master;
-				file \"db.<%=name%>\";
+				file \"/etc/bind/conf.d/db.<%=name%>\";
 			};
 			
 		"""
