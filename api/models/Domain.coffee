@@ -80,13 +80,7 @@ module.exports =
 			.then (domains) ->
 				out = fs.createWriteStream sails.config.file('named.conf.local')
 				_.each domains, (domain) ->
-					out.write """
-						zone \"#{domain.name}\" {
-							type master;
-							file \"#{sails.config.file("db.#{domain.name}")}\";
-						};
-						
-					"""
+					out.write _.template(sails.config.zone)(domain)
 			.catch sails.log.error
 		
 	# reload config

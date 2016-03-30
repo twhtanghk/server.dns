@@ -13,6 +13,13 @@ module.exports =
 			id:		'client id'
 			secret: 'client secret'
 	soa:	[300, 180, 1209600, 300] # [refresh, retry, expire, ttl]
+	zone:	"""
+			zone \"<%=name%>\" {
+				type master;
+				file \"db.<%=name%>\";
+			};
+			
+		"""
 	file: (name) ->
 		"conf.d/#{name}"
 	models:

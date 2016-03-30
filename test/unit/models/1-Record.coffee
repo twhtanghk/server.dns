@@ -18,7 +18,7 @@ describe 'domain', ->
 			sails.models.record
 				.create
 					domain:		'abc.com'
-					name:		'ns1'
+					name:		'@'
 					type:		'NS'
 					param:		['ns1.abc.com.']
 					createdBy:	users[0].email
@@ -30,7 +30,7 @@ describe 'domain', ->
 			sails.models.record
 				.create
 					domain:		'abc.com'
-					name:		'www'
+					name:		'ns1'
 					type:		'A'
 					param:		['10.1.1.1']
 					createdBy:	users[0].email
